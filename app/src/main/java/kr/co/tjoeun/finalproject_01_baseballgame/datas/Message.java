@@ -1,4 +1,4 @@
-package kr.co.tjoeun.finalproject_01_baseballgame.data;
+package kr.co.tjoeun.finalproject_01_baseballgame.datas;
 
 import java.io.Serializable;
 
