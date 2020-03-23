@@ -42,6 +42,11 @@ public class MainActivity extends BaseActivity {
                 String inputNumStr = binding.numInputEdt.getText().toString();
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
+
+//               입력칸을 비워주자.
+                binding.numInputEdt.setText("");
+
+                binding.messageListView.smoothScrollTopPosituin(messageList.size()-1);
             }
         });
 
