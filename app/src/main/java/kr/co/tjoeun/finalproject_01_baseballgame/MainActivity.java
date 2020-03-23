@@ -3,6 +3,7 @@ package kr.co.tjoeun.finalproject_01_baseballgame;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,10 @@ public class MainActivity extends BaseActivity {
 //                자동 내려주기
                 binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
+//                ?S ?B인지 컴퓨터가 대답해주게 하자.
+//                입력한 값을 => int로 바꿔서 => 메쏘드에 전달
+                checkStrikeAndBall(Integer.parseInt(inputNumStr));
+
             }
         });
 
@@ -99,16 +104,53 @@ public class MainActivity extends BaseActivity {
                        isNumOk = false;
                        break;
                    }
+
+               }
 //                   isNumOk가 끝까지 true로 남아있나?
-                   if(isNumOk) {
-                       questionNumArr[i] = randomNum;
-                       Log.d("문제번호", randomNum+"");
-                       break;
-                   }
+               if(isNumOk) {
+                   questionNumArr[i] = randomNum;
+                   Log.d("문제번호", randomNum+"");
+                   break;
                }
            }
         }
 
+    }
+
+//    ?S ?B 판정하기.
+    void checkStrikeAndBall(int inputNum) {
+//        123 => {1,2,3}
+        int[] userNumArr = new int[3];
+//        0번칸? 100의 자리
+        userNumArr[0] = inputNum/100;
+//        1번칸? 10의 자리
+        userNumArr[1] = inputNum/10%10;
+//        2번칸? 1의 자리
+        userNumArr[2] = inputNum%10;
+
+//        S가 몇개, B이 몇개인지 카운팅.
+        int strikeCount = 0;
+        int ballCount = 0;
+
+        for(int i=0; i<userNumArr.length; i++) {
+            for(int j=0; i<questionNumArr.length; j++) {
+
+                if(userNumArr[i] == questionNumArr[j]) {
+                    if(i==j){
+                        strikeCount++;
+                    }
+                    else {
+                        ballCount++;
+                    }
+                }
+            }
+        }
+
+        String content = String.format("%dS %dB입니다.", strikeCount, ballCount);
+        messageList.add(new Message(content, "COMPUTER"));
+        adapter.notifyDataSetChanged();
+
+        binding.messageListView.smoothScrollToPosition(messageList.size()-1);
     }
 
 }
