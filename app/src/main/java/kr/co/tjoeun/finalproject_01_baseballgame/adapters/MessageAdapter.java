@@ -42,9 +42,11 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         Message data = mList.get(position);
 
+        LinearLayout computerMessageLayout = row.findViewById(R.id.computerMessageLayout);
+        LinearLayout userMessageLayout = row.findViewById(R.id.userMessageLayout);
+
         if (data.getSpeaker().equals("COMPUTER")) {
-            LinearLayout computerMessageLayout = row.findViewById(R.id.computerMessageLayout);
-            LinearLayout userMessageLayout = row.findViewById(R.id.userMessageLayout);
+
         }
         else {
 
