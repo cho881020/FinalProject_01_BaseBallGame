@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ public class MainActivity extends BaseActivity {
 
     //    컴퓨터가 내는 숫자 세자리가 담길 배열.
     int[] questionNumArr = new int[3];
+
+//    몇번만에 맞췄는지 카운팅 변수.
+    int tryCount = 0;
 
     ActivityMainBinding binding = null;
 
@@ -46,6 +50,11 @@ public class MainActivity extends BaseActivity {
 //                리스트에 추가하고 새로고침
 
                 String inputNumStr = binding.numInputEdt.getText().toString();
+
+                if (inputNumStr.length() != 3) {
+                    Toast.makeText(mContext, "입력은 3자리여야 합니다", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
@@ -119,6 +128,8 @@ public class MainActivity extends BaseActivity {
 //    ?s ?b 판정하기
     void checkStrikeAndBall (int inputNum) {
 
+        tryCount++;
+
 //        123 => {1,2,3} 배열로 분리
 
         int[] userNumArr = new int[3];
@@ -165,7 +176,7 @@ public class MainActivity extends BaseActivity {
 //        만약 3S면 축하메세지 + 입력 막자. (종료)
 
         if (strikeCount == 3) {
-            messageList.add(new Message("ㅊㅋㅊㅋ 이제 저리가셈", "COMPUTER"));
+            messageList.add(new Message(String.format("ㅊㅋㅊㅋㅊㅋ %d회 만에 맞췄으니 저리가셈", tryCount), "COMPUTER"));
             adapter.notifyDataSetChanged();
             binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
