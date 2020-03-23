@@ -50,9 +50,10 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         if (data.getSpeaker().equals("COMPUTER")){
 
 //            컴퓨터 레이아웃 보여주고, 사람 레이아웃 숨김
-            computerMessageLayout.setVisibility(View.GONE);
-            userMessageLayout.setVisibility(View.VISIBLE);
+            computerMessageLayout.setVisibility(View.VISIBLE);
+            userMessageLayout.setVisibility(View.GONE);
 
+            computerTxt.setText(data.getContent());
 
         }
         else{
@@ -67,4 +68,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         return row;
     }
-}
+
+
+    }
+
