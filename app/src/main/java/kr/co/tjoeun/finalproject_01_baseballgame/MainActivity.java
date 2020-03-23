@@ -24,6 +24,9 @@ public class MainActivity extends BaseActivity {
     //    컴퓨터가 내는 숫자 세자리가 담길 배열
     int[] questionNumArr = new int[3];
 
+//    카운팅 변수
+    int tryCount = 0;
+
     ActivityMainBinding binding = null;
 
 //    조경진의 개발 브런치
@@ -122,6 +125,7 @@ public class MainActivity extends BaseActivity {
 //    ?S ?B 판정하기
 
     void checkStrikeAndBall(int inputNum) {
+        tryCount++;
 
 //        123 => { 1,2,3 } 배열로 분리
         int[] userNumArr = new int[3];
@@ -161,7 +165,7 @@ public class MainActivity extends BaseActivity {
 
 //        만약 3S면 축하메세지 + 입력 막자 (종료)
         if(strikeCount==3){
-            messageList.add(new Message("축하합니다!","COMPUTER"));
+            messageList.add(new Message(String.format("축하합니다 %d회 만에 맞췄습니다!",tryCount),"COMPUTER"));
             adapter.notifyDataSetChanged();
             binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
