@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding = null;
 
-//    조경진의 개발 브런치
+//    박새영의 개발 브런치
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        binding.oKBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//              입력한 숫자를 따와서 => 채팅내용으로 만들어서
+//              => 리스트에 추가하고 => 새로고침
+
+                String inputNumStr = binding.numInputEdt.getText().toString();
+
+                messageList.add(new Message(inputNumStr, "USER"));
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
