@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import kr.co.tjoeun.finalproject_01_baseballgame.R;
-import kr.co.tjoeun.finalproject_01_baseballgame.data.Message;
+import kr.co.tjoeun.finalproject_01_baseballgame.datas.Message;
 
 public class MessageAdapter extends ArrayAdapter<Message> {
 
@@ -34,10 +34,8 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         View row = convertView;
 
         if (row == null) {
-            row = inf.inflate(R.layout.message_list_item, null);
+            row = inf.inflate(R.layout.message_view_list_item, null);
         }
-
-
         return row;
     }
 }
