@@ -26,6 +26,8 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding = null;
 
+    int tryCount = 0;
+
 //    조경진의 개발 브런치
 
     @Override
@@ -116,6 +118,9 @@ public class MainActivity extends BaseActivity {
 
     void checkStrikeAndBall(int inputNum) {
 
+//        시도 횟수 1회 증가
+        tryCount++;
+
         int[] userNumArr = new int[3];
         userNumArr[0] = inputNum / 100;
         userNumArr[1] = (inputNum / 10) % 10;
@@ -142,7 +147,7 @@ public class MainActivity extends BaseActivity {
         binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
 
         if(strikeCount == 3) {
-            messageList.add(new Message("축하합니다!", "COMPUTER"));
+            messageList.add(new Message(String.format("축하합니다! %d회만에 맞췄습니다.", tryCount), "COMPUTER"));
             adapter.notifyDataSetChanged();
             binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
 
