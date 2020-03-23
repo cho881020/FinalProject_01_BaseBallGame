@@ -175,6 +175,21 @@ public class MainActivity extends BaseActivity {
 
         binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
+//        만약 3스트 면 축하메세지 + 입력을 막자. (종료)
+
+        if(strikeCount == 3) {
+
+            messageList.add(new Message("축하합니다!", "COmPUTER"));
+            adapter.notifyDataSetChanged();
+            binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+
+//            입력 막자 : enabled => false
+
+            binding.numInputEdt.setEnabled(false);
+            binding.okBtn.setEnabled(false);
+
+        }
+
 
     }
 
