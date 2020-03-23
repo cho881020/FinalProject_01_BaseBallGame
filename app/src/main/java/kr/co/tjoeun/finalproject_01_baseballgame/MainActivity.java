@@ -52,6 +52,9 @@ public class MainActivity extends BaseActivity {
                 binding.numInputEdt.setText("");
 
                 binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+
+//                입력값을 =>
+                checkStrikeAndBall(Integer.parseInt(inputNumStr));
             }
         });
 
@@ -105,6 +108,54 @@ public class MainActivity extends BaseActivity {
                 }
             }
         }
+
+    }
+
+//    ?s ?b 판정하기
+    void checkStrikeAndBall (int inputNum) {
+
+//        123 => {1,2,3} 배열로 분리
+
+        int[] userNumArr = new int[3];
+//        0번칸 100의자리
+        userNumArr[0] = inputNum / 100;
+//        1번칸 10의자리 => 10으로 나누고 그 값의 1의자리.
+        userNumArr[1] = inputNum / 10 % 10;
+//        2번칸 1의자리
+        userNumArr[2] = inputNum % 10;
+
+//        S가 몇개, B이 몇개인지 카운팅.
+        int strikeCount = 0;
+        int ballCount = 0;
+
+//        숫자 비교 for 중첩
+//        i = 사용자 입력값을 뽑는 index
+        for (int i=0; i < userNumArr.length; i++) {
+
+//            j= 문제의 각 자리를 뽑는 index
+            for (int j= 0; j < questionNumArr.length; j++) {
+
+                if (userNumArr[i] == questionNumArr[j]) {
+
+//                    위치가 같은가? => index가 서로 같나?
+//                    i == j ?
+                    if (i == j) {
+                        strikeCount++;
+                    }
+                    else {
+                        ballCount++;
+                    }
+
+                }
+
+            }
+        }
+
+        String content = String.format("%dS %dB입니다.", strikeCount, ballCount);
+        messageList.add(new Message(content, "COMPUTER"));
+        adapter.notifyDataSetChanged();
+
+        binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
     }
 }
