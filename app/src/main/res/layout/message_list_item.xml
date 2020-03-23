@@ -8,6 +8,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/computerMessageLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal"
@@ -24,6 +25,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/userMessageLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal"
