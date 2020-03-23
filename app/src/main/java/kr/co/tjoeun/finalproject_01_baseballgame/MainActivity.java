@@ -12,6 +12,7 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding = null;
 
+//    ㅎㅇㅎㅇ
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
