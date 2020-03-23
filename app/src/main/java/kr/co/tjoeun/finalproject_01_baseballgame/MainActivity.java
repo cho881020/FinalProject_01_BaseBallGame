@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
@@ -32,6 +33,18 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        binding.okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String inputNumStr = binding.numInputEdt.getText().toString();
+
+                messageList.add(new Message(inputNumStr, "USER"));
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
 
     }
 
