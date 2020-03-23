@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ public class MainActivity extends BaseActivity {
 
 //    컴퓨터가 내는 숫자 세자리가 담길 배열.
     int[] questionNumArr = new int[3];
+
+//    몇번만에 맞췄는지 카운팅 변수.
+    int tryCount;
 
 
     ActivityMainBinding binding = null;
@@ -44,6 +48,14 @@ public class MainActivity extends BaseActivity {
 //                => 리스트에 추가하고 => 새로고침
 
                 String inputNumStr = binding.numInputEdt.getText().toString();
+//                입력한 글자가 세자리가 아니면 오류 토스트.
+//                밑의 코드는 진행되지 않게.
+
+                if (inputNumStr.length() !=3){
+                    Toast.makeText(mContext,"입력은 세자리여야 합니다.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
 
@@ -125,6 +137,8 @@ public class MainActivity extends BaseActivity {
 
     void checkStrikeAndBall(int inputNum){
 
+        tryCount++;
+
 //        123 => {1,2,3} 배열로 분리.
 
         int[] userNumArr = new int[3];
@@ -174,7 +188,7 @@ public class MainActivity extends BaseActivity {
 
         if (strikeCount == 3 ){
 
-            messageList.add(new Message("축하합니다!","COMPUTER"));
+            messageList.add(new Message(String.format("축하합니다! %d회만에 맞췄습니다!", tryCount),"COMPUTER"));
             adapter.notifyDataSetChanged();
             binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
