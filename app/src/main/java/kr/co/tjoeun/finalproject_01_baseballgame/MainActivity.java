@@ -49,10 +49,16 @@ public class MainActivity extends BaseActivity {
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
 
-//        입력칸을 비워주자.
+//                입력칸을 비워주자.
                 binding.numInputEdt.setText("");
 
+//                자동 리스트뷰 끌어내림
+
                 binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+
+//                ?S?B인지 컴퓨터가 대답해주게 하자.
+//                입력한 값을 => int로 바꿔서 => 메소드에 전달
+                checkStrikeAndBall(Integer.parseInt(inputNumStr));
             }
         });
 
@@ -109,5 +115,48 @@ public class MainActivity extends BaseActivity {
 
             }
         }
+    }
+
+//    ?S?B 판정하기.
+
+    void  checkStrikeAndBall(int inputNum){
+
+//        123 => {1,2,3} 배열로 분리.
+
+        int[] userNumArr = new int[3];
+//        0번칸? 100의 자리,
+        userNumArr[0] = inputNum / 100;
+//        1번칸? 10의 자리,
+        userNumArr[1] = inputNum / 10 % 10;
+//        2번칸? 1의 자리
+        userNumArr[2] = inputNum % 10;
+
+//        S가 몇개, B가 몇개인지 카운팅.
+        int strikeCount = 0;
+        int ballCount = 0;
+
+//        숫자 비교 for 중첩
+//        i : 사용자 입력값을 뽑는 index
+        for(int i=0; i<userNumArr.length; i++){
+//            j: 문제의 각 자리를 뽑는 index
+            for(int j=0; j<questionNumArr.length; j++){
+//                같은 숫자인지? => 볼? 스트라이크? 인지
+                if(userNumArr[i] == questionNumArr[j]){
+//                    위차가 같은가? => index가 서로 같나?
+                    if(i==j){
+                        strikeCount++;
+                    }else{
+                        ballCount++;
+                    }
+                }
+            }
+        }
+
+        String content = String.format("%dS %dB입니다.", strikeCount, ballCount);
+        messageList.add(new Message(content, "CONPUTER"));
+        adapter.notifyDataSetChanged();
+
+        binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+
     }
 }
