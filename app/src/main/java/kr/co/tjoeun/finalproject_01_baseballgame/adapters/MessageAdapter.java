@@ -36,7 +36,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         View row = convertView;
 
         if (row == null) {
-            row = inf.inflate(R.layout.message_view_list_item, null);
+            row = inf.inflate(R.layout.message_list_item, null);
         }
 
         Message data = mList.get(position);
@@ -52,7 +52,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             computerMessageLayout.setVisibility(View.VISIBLE);
             userMessageLayout.setVisibility(View.GONE);
 
-            computerTxt.setText(data.getSpeaker());
+            computerTxt.setText(data.getContent());
 
         }
         else {
@@ -60,7 +60,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             computerMessageLayout.setVisibility(View.GONE);
             userMessageLayout.setVisibility(View.VISIBLE);
 
-            computerTxt.setText(data.getContent());
+            userTxt.setText(data.getContent());
 
         }
 

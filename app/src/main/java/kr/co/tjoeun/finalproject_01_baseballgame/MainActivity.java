@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class MainActivity extends BaseActivity {
     List<Message> messageList = new ArrayList<>();
     MessageAdapter adapter = null;
 
+    int[] questionNumArr = new int[3];
 
     ActivityMainBinding binding = null;
 
@@ -29,6 +31,8 @@ public class MainActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setupEvents();
         setValues();
+
+        makeQuestion();
     }
 
     @Override
@@ -51,6 +55,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+
+
     }
 
     @Override
@@ -63,6 +69,42 @@ public class MainActivity extends BaseActivity {
         adapter = new MessageAdapter(mContext, R.layout.message_list_item, messageList);
         binding.messageListView.setAdapter(adapter);
 
+
+    }
+
+//    컴퓨터가 문제 출제
+//    1~9의 숫자를 랜덤으로 생성
+//    문제 배열에 들어있나 검사. => 만들었으면 집어넣자
+//    들어있는걸 발견? 중복 다시 불자
+    void makeQuestion() {
+//        3자리 다 채울때까지
+        for (int i = 0; i < questionNumArr.length; i++){
+//            각자리에 조건에 맞는숫자를 뽑을때까지
+            while (true) {
+//                1~9
+                int randomNum = (int) (Math.random()*9+1);
+
+//                배열안에 랜덤값과 같은 값이 들어있나?
+//                한번도 없으면 => 중복x 사용 ㅇ
+//                한번이라도 찾으면 중복 ㅇ 사용x
+                boolean isNumOk = true;
+
+//                문제 배열안에 있는 숫자를 num로 하나씩 뽑아본다
+                for (int num : questionNumArr) {
+                    if (randomNum == num) {
+                        isNumOk = false;
+                        break;
+                    }
+                }
+
+//                isnum
+                if (isNumOk) {
+                    questionNumArr[i] = randomNum;
+                    Log.d("문제번호", randomNum+"");
+                    break;
+                }
+            }
+        }
 
     }
 }
