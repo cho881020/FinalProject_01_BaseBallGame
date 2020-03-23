@@ -45,7 +45,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         LinearLayout userMessageLayout = row.findViewById((R.id.userMessageLayout));
 
         TextView computerTxt = row.findViewById(R.id.computerTxt);
-        TextView userTxt = row.findViewById((R.id.userTxt))
+        TextView userTxt = row.findViewById((R.id.userTxt));
 
         if (data.getSpeaker().equals("COMPUTER")){
 
