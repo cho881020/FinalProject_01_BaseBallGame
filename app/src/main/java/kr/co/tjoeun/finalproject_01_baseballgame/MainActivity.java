@@ -15,12 +15,12 @@ import kr.co.tjoeun.finalproject_01_baseballgame.databinding.ActivityMainBinding
 public class MainActivity extends BaseActivity {
 
     List<Message> messageList = new ArrayList<>();
-
     MessageAdapter adapter = null;
+
 
     ActivityMainBinding binding = null;
 
-//    김주형의 개발 브런치
+//    조경진의 개발 브런치
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setValues() {
 
-        adapter = new MessageAdapter(mContext, R.layout.message_list_item, null);
+        adapter = new MessageAdapter(mContext, R.layout.message_list_item, messageList);
         binding.messageListView.setAdapter(adapter);
+
+
     }
 }
