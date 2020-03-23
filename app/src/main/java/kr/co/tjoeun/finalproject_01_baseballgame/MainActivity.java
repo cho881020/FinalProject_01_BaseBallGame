@@ -19,11 +19,12 @@ public class MainActivity extends BaseActivity {
     List<Message> messageList = new ArrayList<>();
     MessageAdapter adapter = null;
 
+    //    컴퓨터가 내는 숫자 세자리가 담길 배열.
     int[] questionNumArr = new int[3];
 
     ActivityMainBinding binding = null;
 
-//    조경진의 개발 브런치
+//    김주형의 개발 브런치
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +50,14 @@ public class MainActivity extends BaseActivity {
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
 
+//                입력칸을 비워주자.
                 binding.numInputEdt.setText("");
 
+//                리스트뷰 끌어 내림
                 binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
-//                입력값을 =>
+//                ?S ?B인지 컴퓨터가 대답해주게 하자.
+//                입력값을 => int로 바꿔서 (Wrapper) => 메쏘드에 전달
                 checkStrikeAndBall(Integer.parseInt(inputNumStr));
             }
         });
@@ -79,6 +83,7 @@ public class MainActivity extends BaseActivity {
 //    1~9의 숫자를 랜덤으로 생성
 //    문제 배열에 들어있나 검사. => 만들었으면 집어넣자
 //    들어있는걸 발견? 중복 다시 불자
+//    => 세칸을 다 채울때 까지.
     void makeQuestion() {
 //        3자리 다 채울때까지
         for (int i = 0; i < questionNumArr.length; i++){
@@ -100,7 +105,7 @@ public class MainActivity extends BaseActivity {
                     }
                 }
 
-//                isnum
+//                isNumOk가 끝까지 true로 남아있나?
                 if (isNumOk) {
                     questionNumArr[i] = randomNum;
                     Log.d("문제번호", randomNum+"");
