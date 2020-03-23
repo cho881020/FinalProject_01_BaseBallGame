@@ -168,6 +168,7 @@ public class MainActivity extends BaseActivity {
 
         }
 
+
         String content = String.format("%dS %dB입니다.", strikeCount, ballCount);
         messageList.add(new Message(content, "COMPUTER"));
         adapter.notifyDataSetChanged();
