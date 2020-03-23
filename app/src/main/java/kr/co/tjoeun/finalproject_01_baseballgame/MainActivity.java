@@ -4,12 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import kr.co.tjoeun.finalproject_01_baseballgame.adapters.MessageAdapter;
 import kr.co.tjoeun.finalproject_01_baseballgame.databinding.ActivityMainBinding;
+import kr.co.tjoeun.finalproject_01_baseballgame.datas.Message;
 
 public class MainActivity extends BaseActivity {
 
 
+    List<Message> messageList = new ArrayList<>();
+    MessageAdapter adapter = null;
     ActivityMainBinding binding = null;
 
 //    조경진의 개발 브런치
@@ -30,5 +38,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setValues() {
 
+        adapter = new MessageAdapter(mContext, R.layout.message_list_item, messageList);
+        binding.messageListView.setAdapter(adapter);
     }
 }
