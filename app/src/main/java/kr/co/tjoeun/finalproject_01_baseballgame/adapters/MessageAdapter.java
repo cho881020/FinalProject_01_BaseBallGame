@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,18 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         if (row == null) {
             row = inf.inflate(R.layout.message_list_item,null);
+        }
+
+        Message data = mList.get(position);
+
+        LinearLayout computerMessageLayout = row.findViewById(R.id.computerMessageLayout);
+        LinearLayout userMessageLayout = row.findViewById(R.id.userMessageLayout);
+
+        if (data.getSpeaker().equals("COMPUTER")) {
+
+        }
+        else {
+
         }
 
         return row;
