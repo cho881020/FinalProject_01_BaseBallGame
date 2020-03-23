@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
     private String content;
-    private String speaker; //말한 사람. 내가? 컴퓨터?
+    private String speaker; // 말한 사람. 내가? 컴퓨터?
 
     public Message(String content, String speaker) {
         this.content = content;

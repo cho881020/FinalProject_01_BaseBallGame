@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,10 +35,33 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
 
-        if(row == null){
-            row = inf.inflate(R.layout.message_list_item,null);
+        if (row == null) {
+            row = inf.inflate(R.layout.message_list_item, null);
         }
 
+        Message data = mList.get(position);
+        LinearLayout computerMessageLayout = row.findViewById(R.id.computerMessageLayout);
+        LinearLayout userMessageLayout = row.findViewById(R.id.userMessageLayout);
+
+        TextView computerTxt = row.findViewById(R.id.computerMessageTxt);
+        TextView userTxt = row.findViewById(R.id.userMessageTxt);
+
+
+
+        if(data.getSpeaker().equals("COMPUTER")){
+
+            computerMessageLayout.setVisibility(View.VISIBLE);
+            userMessageLayout.setVisibility(View.GONE);
+
+            computerTxt.setText(data.getContent());
+
+        }else{
+
+            computerMessageLayout.setVisibility(View.GONE);
+            userMessageLayout.setVisibility(View.VISIBLE);
+
+            userTxt.setText(data.getContent());
+        }
 
         return row;
     }
