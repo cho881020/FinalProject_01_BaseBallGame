@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String inputNumStr = binding.numInputEdt.getText().toString();
+
+//                입력한 글자가 세자리가 아니면 오류 토스트.
+//                밑의 코드는 진행되지 않게.
+
+                if(inputNumStr.length() != 3){
+                    Toast.makeText(mContext, "입력은 세자리여야 합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
