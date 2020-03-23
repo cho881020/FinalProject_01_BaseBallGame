@@ -44,6 +44,10 @@ public class MainActivity extends BaseActivity {
 
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
+
+                binding.numInputEdt.setText("");
+
+                binding.messageListView.smoothScrollToPosition(messageList.size()-1);
             }
         });
 
