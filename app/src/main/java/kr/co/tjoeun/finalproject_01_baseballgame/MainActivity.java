@@ -61,6 +61,9 @@ public class MainActivity extends BaseActivity {
 //                컴퓨터가 대답 (내가 입력한 숫자 분석)
                 checkStrikeAndBall(Integer.parseInt(inputNumStr));
             }
+
+
+
         });
     }
 
@@ -136,9 +139,17 @@ public class MainActivity extends BaseActivity {
         String content = String.format("%dS %dB 입니다.", strikeCount, ballCount);
         messageList.add(new Message(content, "COMPUTER"));
         adapter.notifyDataSetChanged();
-
-//        리스트 자동 스크롤(가장 마지막 메세지 보이도록)
         binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
+
+        if(strikeCount == 3) {
+            messageList.add(new Message("축하합니다!", "COMPUTER"));
+            adapter.notifyDataSetChanged();
+            binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
+
+//            더이상의 추가 입력을 막기위해 입력칸, 입력 버튼 enabled = false
+            binding.numInputEdt.setEnabled(false);
+            binding.okBtn.setEnabled(false);
+        }
 
     }
 }
