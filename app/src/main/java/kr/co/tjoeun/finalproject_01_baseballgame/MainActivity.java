@@ -12,8 +12,7 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding = null;
 
-//    강우상의 개발 브런치
-
+//    조경진의 개발 브런치
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
