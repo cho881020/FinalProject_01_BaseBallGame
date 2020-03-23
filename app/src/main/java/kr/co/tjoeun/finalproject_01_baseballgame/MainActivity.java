@@ -3,6 +3,7 @@ package kr.co.tjoeun.finalproject_01_baseballgame;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.net.wifi.hotspot2.omadm.PpsMoParser;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -161,6 +162,18 @@ public class MainActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
 
         binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+
+//      만약 3S면 축하메세지 + 입력 막자. (종료)
+
+        if (strikeCount==3) {
+
+            messageList.add(new Message("축하합니다!","COMPUTER"));
+            adapter.notifyDataSetChanged();
+            binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+            binding.numInputEdt.setEnabled(false);
+            binding.okBtn.setEnabled(false);
+
+        }
 
     }
 }
