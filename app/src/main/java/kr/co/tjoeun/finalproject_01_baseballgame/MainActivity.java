@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,12 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
 //                입력받은 숫자 String으로 변환하여 새 변수에 받기
                 String inputNumStr = binding.numInputEdt.getText().toString();
+
+//                입력받은 숫자가 세자리가 아니면 오류 토스트 띄우고 밑의 코드는 진행되지 않도록
+                if(inputNumStr.length() != 3){
+                    Toast.makeText(mContext, "세자리 수로 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 //                받은 숫자로 새 메세지 출력하고 새로고침
                 messageList.add(new Message(inputNumStr, "USER"));
