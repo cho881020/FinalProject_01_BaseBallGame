@@ -12,6 +12,8 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding = null;
 
+//    박초연의 개발 브런치
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
