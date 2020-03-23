@@ -14,7 +14,6 @@ public class MainActivity extends BaseActivity {
 
 //    최성헌의 개발 브런치
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
