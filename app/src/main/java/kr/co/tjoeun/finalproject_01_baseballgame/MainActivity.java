@@ -33,7 +33,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+//        입력한 숫자를 따와서 => 채팅내용으로 만들어서
+//        => 리스트에 추가하고 => 새로고침
 
+        String inputNumStr = binding.numInputEdt.getText().toString();
+
+        messageList.add(new Message(inputNumStr, "USER"));
+        adapter.notifyDataSetChanged();
     }
 
     @Override
