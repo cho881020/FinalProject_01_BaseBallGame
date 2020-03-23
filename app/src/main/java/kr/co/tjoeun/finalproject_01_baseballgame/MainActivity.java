@@ -32,12 +32,14 @@ public class MainActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setupEvents();
         setValues();
+
+        makeQuestion();
     }
 
     @Override
     public void setupEvents() {
 
-        binding.oKBtn.setOnClickListener(new View.OnClickListener() {
+        binding.okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //              입력한 숫자를 따와서 => 채팅내용으로 만들어서
@@ -51,7 +53,15 @@ public class MainActivity extends BaseActivity {
 
                 binding.numInputEdt.setText("");
 
+//              리스트뷰 끌어 내림
+
                 binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+
+//              ?S ?B인지 컴퓨터가 대답해주게 하자.
+//              입력값을 => int로 바꿔서 => 메쏘드에 전달
+
+                checkStrikeAndBall(Integer.parseInt(inputNumStr));
+
             }
         });
 
@@ -63,7 +73,6 @@ public class MainActivity extends BaseActivity {
         messageList.add(new Message("숫자 야구를 시작합니다.", "COMPUTER"));
         messageList.add(new Message("세자리 숫자를 맞춰주세요.", "COMPUTER"));
         messageList.add(new Message("0은 사용되지 않고, 중복된 숫자도 없습니다.", "COMPUTER"));
-
         adapter = new MessageAdapter(mContext, R.layout.message_list_item, messageList);
         binding.messageListView.setAdapter(adapter);
 
@@ -106,6 +115,52 @@ public class MainActivity extends BaseActivity {
 
             }
         }
+
+    }
+
+//  ?S ?B 판정하기
+
+    void checkStrikeAndBall(int inputNum) {
+//      123 => {1,2,3} 배열로 분리.
+
+        int[] userNumArr = new int[3];
+
+//      0번칸? 100의 자리
+        userNumArr[0] = inputNum / 100;
+//      1번칸? 10의 자리 => 10으로 나누고 그 값의 1의 자리
+        userNumArr[1] = inputNum / 10 % 10;
+//      2번칸? 1의 자리
+        userNumArr[2] = inputNum % 10;
+
+        int strikeCount = 0;
+        int ballCount = 0;
+
+//      숫자 비교 for 중첩
+//      i : 사용자 입력값을 뽑는 index
+        for (int i=0; i<userNumArr.length;i++) {
+//          j : 문제의 각 자리를 뽑는 index
+            for (int j=0;j<questionNumArr.length;j++){
+//              같은 숫자인지? => 볼? 스트라잌인지? 추가 검사
+                if(userNumArr[i] == questionNumArr[j]) {
+//                  위치가 같은가? => index가 서로 같나?
+//                  => i == j?
+
+                    if (i==j) {
+                        strikeCount++;
+                    }
+                    else {
+                        ballCount++;
+                    }
+                }
+            }
+
+        }
+
+        String content = String.format("%dS %dB입니다.", strikeCount, ballCount);
+        messageList.add(new Message(content, "COMPUTER"));
+        adapter.notifyDataSetChanged();
+
+        binding.messageListView.smoothScrollToPosition(messageList.size()-1);
 
     }
 }
