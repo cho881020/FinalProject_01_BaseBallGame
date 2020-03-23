@@ -24,9 +24,6 @@ public class MainActivity extends BaseActivity {
     //    컴퓨터가 내는 숫자를 담는 배열
     int[] questionNumArr = new int[3];
 
-//    사용자가 맞추는 숫자를 담는 배열
-//    int[] answerNumArr = new int[3];
-
     ActivityMainBinding binding = null;
 
 //    조경진의 개발 브런치
@@ -59,6 +56,10 @@ public class MainActivity extends BaseActivity {
 
 //                리스트 자동 스크롤(가장 마지막 메세지 보이도록)
                 binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
+
+
+//                컴퓨터가 대답 (내가 입력한 숫자 분석)
+                checkStrikeAndBall(Integer.parseInt(inputNumStr));
             }
         });
     }
@@ -76,11 +77,11 @@ public class MainActivity extends BaseActivity {
 
     //    컴퓨터가 문제 출제 (1~9의 숫자를 랜덤으로 생성 / 문제 배열에 들어있나 검사 / 안들어있으면 배열에 추가, 들어있으면 다시 랜덤으로 뽑기 / 세칸을 채울 때 까지 반복)
     void makeQuestion() {
-        for (int i = 0 ; i < questionNumArr.length ; i++) { //배열을 다 채울 때 까지 반복(index 3이기때문에 3번 반복될 것)
-            while(true) {   //각 자리에 모든 조건을 만족할때까지 반복(모든 조건을 만족하는게 몇번일지 알 수 없음)
+        for (int i = 0; i < questionNumArr.length; i++) { //배열을 다 채울 때 까지 반복(index 3이기때문에 3번 반복될 것)
+            while (true) {   //각 자리에 모든 조건을 만족할때까지 반복(모든 조건을 만족하는게 몇번일지 알 수 없음)
 
 //                default : 0 <= Math.random() < 1 (실수) -> 가공 / 캐스팅 해주어야 함
-                int randomNum = (int) Math.random() * 9 + 1;
+                int randomNum = (int) (Math.random() * 9 + 1);
 
 //                중복 검사
                 boolean isNumOk = true;
@@ -93,20 +94,52 @@ public class MainActivity extends BaseActivity {
                 }
                 */
 
-                for(int num : questionNumArr){
-                    if(num == randomNum){
+                for (int num : questionNumArr) {
+                    if (num == randomNum) {
                         isNumOk = false;
                         break;
                     }
                 }
 
-                if(isNumOk) {
+                if (isNumOk) {
                     questionNumArr[i] = randomNum;
-                    Log.d("문제 번호", randomNum+"");
+                    Log.d("문제 번호", randomNum + "");
                     break;
                 }
 
             }
         }
     }
+
+    void checkStrikeAndBall(int inputNum) {
+
+        int[] userNumArr = new int[3];
+        userNumArr[0] = inputNum / 100;
+        userNumArr[1] = (inputNum / 10) % 10;
+        userNumArr[2] = inputNum % 10;
+
+        int strikeCount = 0;
+        int ballCount = 0;
+
+        for (int i = 0; i < userNumArr.length; i++) {
+            for (int j = 0; j < questionNumArr.length; j++) {
+                if (userNumArr[i] == questionNumArr[j]) {
+                    if (i == j) {
+                        strikeCount++;
+                    } else {
+                        ballCount++;
+                    }
+                }
+            }
+        }
+
+        String content = String.format("%dS %dB 입니다.", strikeCount, ballCount);
+        messageList.add(new Message(content, "COMPUTER"));
+        adapter.notifyDataSetChanged();
+
+//        리스트 자동 스크롤(가장 마지막 메세지 보이도록)
+        binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
+
+    }
 }
+
