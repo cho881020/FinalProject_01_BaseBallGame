@@ -9,6 +9,7 @@
         tools:context=".MainActivity">
 
         <ListView
+            android:id="@+id/messageListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -18,7 +19,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/Edt"
+                    android:id="@+id/numInputEdt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
