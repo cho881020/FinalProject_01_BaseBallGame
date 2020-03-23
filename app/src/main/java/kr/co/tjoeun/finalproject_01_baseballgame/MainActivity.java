@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity {
     List<Message> messageList = new ArrayList<>();
     MessageAdapter adapter = null;
 
-//    컴퓨터가 내는 숫자 세자리가 담길 배열
+    //    컴퓨터가 내는 숫자 세자리가 담길 배열
     int[] questionNumArr = new int[3];
 
     //    몇번만에 맞췄는지 카운팅 변수.
@@ -51,6 +51,14 @@ public class MainActivity extends BaseActivity {
 
                 String inputNumStr = binding.numInputEdt.getText().toString();
 
+                //                입력한 글자가 세자리가 아니면 오류 토스트.
+//                밑의 코드는 진행되지 않게.
+
+                if (inputNumStr.length() != 3) {
+                    Toast.makeText(mContext, "입력은 세자리여야 합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 messageList.add(new Message(inputNumStr, "USER"));
                 adapter.notifyDataSetChanged();
 
@@ -58,7 +66,7 @@ public class MainActivity extends BaseActivity {
                 binding.numInputEdt.setText("");
 
 //                리스트뷰 끌어 내림
-                binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+                binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
 
 //                ?S ?B인지 컴퓨터가 대답해주게 하자
 //                입력값을 => int로 바꿔서 => 메쏘드에 전달
@@ -70,6 +78,7 @@ public class MainActivity extends BaseActivity {
         });
 
     }
+
     @Override
     public void setValues() {
 
@@ -81,7 +90,7 @@ public class MainActivity extends BaseActivity {
         binding.messageListView.setAdapter(adapter);
     }
 
-//    컴퓨터가 문제 출제
+    //    컴퓨터가 문제 출제
 //    1~9의 숫자를 랜덤으로 생성
 //    문제 배열에 들어있나 검사 => 안들어있으면 집어넣자.
 //    => 들어있는걸 발견? 중복! 다시 뽑자.
@@ -89,13 +98,13 @@ public class MainActivity extends BaseActivity {
     void makeQuestion() {
 
 //        3자리 배열을 다 채울때까지
-        for (int i=0 ; i < questionNumArr.length ; i++){
+        for (int i = 0; i < questionNumArr.length; i++) {
 //            각 자리에 조건에 맞는 숫자를 뽑을때까지
-            while(true){
+            while (true) {
 
 //                1~9사이의 랜덤값 뽑아보자
 //                0 <= Math.random() < 1  => 1 <= (int) (Math.random()*9+1) < 10
-                int randomNum = (int)(Math.random()*9+1);
+                int randomNum = (int) (Math.random() * 9 + 1);
 
 //                배열 안에 랜덤값과 같은 값이 들어있나?
 //                한번도 없으면 => 중복 X 사용해도 O
@@ -104,17 +113,17 @@ public class MainActivity extends BaseActivity {
                 boolean isNumOk = true;
 
 //                문제배열안에 있는 숫자를 num로 하나씩 뽑아보자
-                for (int num : questionNumArr){
-                    if (randomNum == num){
+                for (int num : questionNumArr) {
+                    if (randomNum == num) {
                         isNumOk = false;
                         break;
                     }
                 }
 
 //                isNumOk가 끝까지 true로 남아있나?
-                if (isNumOk){
+                if (isNumOk) {
                     questionNumArr[i] = randomNum;
-                    Log.d("문제번호",randomNum+"");
+                    Log.d("문제번호", randomNum + "");
                     break;
                 }
             }
@@ -123,7 +132,7 @@ public class MainActivity extends BaseActivity {
 
 //    ?S ?B 판정하기
 
-    void checkStrikeAndBall(int inputNum){
+    void checkStrikeAndBall(int inputNum) {
 
         //        시도횟수를 1회 증가.
         tryCount++;
@@ -144,21 +153,20 @@ public class MainActivity extends BaseActivity {
 
 //        숫자 비교 for 중첩
 //        i : 사용자 입력값을 뽑는 index
-        for (int i=0 ; i<userNumArr.length ; i++){
+        for (int i = 0; i < userNumArr.length; i++) {
 
 //            j : 문제의 각 자리를 뽑는 index
-            for (int j=0 ; j<questionNumArr.length ; j++){
+            for (int j = 0; j < questionNumArr.length; j++) {
 
 //                같은 숫자인지? => 볼? 스트라이크인지? 추가 검사
-                if (userNumArr[i] == questionNumArr[j]){
+                if (userNumArr[i] == questionNumArr[j]) {
 
 //                    위치가 같은가? => index가 서로 같나?
 //                    => i == j ?
 
-                    if (i == j){
+                    if (i == j) {
                         strikeCount++;
-                    }
-                    else {
+                    } else {
                         ballCount++;
                     }
                 }
@@ -168,11 +176,11 @@ public class MainActivity extends BaseActivity {
 
         }
 
-        String  content = String.format("%dS %dB입니다.", strikeCount, ballCount);
+        String content = String.format("%dS %dB입니다.", strikeCount, ballCount);
         messageList.add(new Message(content, "COMPUTER"));
         adapter.notifyDataSetChanged();
 
-        binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+        binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
 
 //        만약 3S면 축하메세지 + 입력 막자. (종료)
 
@@ -180,7 +188,7 @@ public class MainActivity extends BaseActivity {
 
             messageList.add(new Message(String.format("축하합니다! %d회 만에 맞췄습니다!", tryCount), "COMPUTER"));
             adapter.notifyDataSetChanged();
-            binding.messageListView.smoothScrollToPosition(messageList.size()-1);
+            binding.messageListView.smoothScrollToPosition(messageList.size() - 1);
 
 //            입력 막자 : enabled => false
 
