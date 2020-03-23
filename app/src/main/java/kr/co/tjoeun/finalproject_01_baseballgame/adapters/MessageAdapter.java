@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,10 +44,23 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         LinearLayout computerMessageLayout = row.findViewById(R.id.computerMessageLayout);
         LinearLayout userMessageLayout = row.findViewById(R.id.userMessageLayout);
 
+        TextView computerTxt = row.findViewById(R.id.computerTxt);
+        TextView userTxt = row.findViewById(R.id.userTxt);
+
         if (data.getSpeaker().equals("COMPUTER")) {
+
+//            컴퓨터레이아웃 보여주고, 사람 레이아웃 숨김
+            computerMessageLayout.setVisibility(View.VISIBLE);
+            userMessageLayout.setVisibility(View.GONE);
+
+            computerTxt.setText(data.getContent());
 
         }
         else {
+            computerMessageLayout.setVisibility(View.GONE);
+            userMessageLayout.setVisibility(View.VISIBLE);
+
+            userTxt.setText(data.getContent());
 
         }
 
