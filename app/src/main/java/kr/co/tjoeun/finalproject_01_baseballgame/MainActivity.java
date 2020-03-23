@@ -38,8 +38,15 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setValues() {
 
+        messageList.add(new Message("숫자 야구를 시작합니다.","COMPUTER"));
+        messageList.add(new Message("세자리 숫자를 맞춰주세요.","COMPUTER"));
+        messageList.add(new Message("0은 사용되지 않고, 중복된 숫자도없습니다.","COMPUTER"));
+
+
         adapter = new MessageAdapter(mContext, R.layout.message_list_item, messageList);
         binding.messageListView.setAdapter(adapter);
+
+
 
     }
 }
