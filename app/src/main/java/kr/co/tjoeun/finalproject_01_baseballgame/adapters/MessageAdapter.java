@@ -55,12 +55,13 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 //            컴퓨터 레이아웃 보여주고, 사람 레이아웃 숨김
             computerMessageLayout.setVisibility(View.VISIBLE);
             userMessageLayout.setVisibility(View.GONE);
-            computerTxt.setText(data.getContent());
 
+            computerTxt.setText(data.getContent());
         }
         else {
             computerMessageLayout.setVisibility(View.GONE);
             userMessageLayout.setVisibility(View.VISIBLE);
+
             userTxt.setText(data.getContent());
         }
 
