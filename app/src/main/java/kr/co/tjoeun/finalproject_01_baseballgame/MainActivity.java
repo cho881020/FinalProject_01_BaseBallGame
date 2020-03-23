@@ -9,6 +9,8 @@ import kr.co.tjoeun.finalproject_01_baseballgame.databinding.ActivityMainBinding
 
 public class MainActivity extends BaseActivity {
 
+//    백승훈의 개발 브런치
+
 
     ActivityMainBinding binding = null;
 
