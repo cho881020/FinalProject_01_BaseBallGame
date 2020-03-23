@@ -14,8 +14,6 @@ import java.util.List;
 import kr.co.tjoeun.finalproject_01_baseballgame.R;
 import kr.co.tjoeun.finalproject_01_baseballgame.data.Message;
 
-
-
 public class MessageAdapter extends ArrayAdapter<Message> {
 
     Context mContext;
@@ -28,7 +26,6 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         mContext = context;
         mList = objects;
         inf = LayoutInflater.from(mContext);
-
     }
 
     @NonNull
@@ -37,8 +34,9 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         View row = convertView;
 
         if (row == null) {
-            row = inf.inflate(R.layout.message_list_item,null);
+            row = inf.inflate(R.layout.message_list_item, null);
         }
+
 
         return row;
     }
