@@ -22,6 +22,8 @@ public class MainActivity extends BaseActivity {
 
     int[] questionNumArr = new int[3];
 
+    int tryCount = 0;
+
 
     ActivityMainBinding binding = null;
 
@@ -122,6 +124,7 @@ public class MainActivity extends BaseActivity {
 //  ?S ?B 판정하기
 
     void checkStrikeAndBall(int inputNum) {
+        tryCount++;
 //      123 => {1,2,3} 배열로 분리.
 
         int[] userNumArr = new int[3];
@@ -167,7 +170,7 @@ public class MainActivity extends BaseActivity {
 
         if (strikeCount==3) {
 
-            messageList.add(new Message("축하합니다!","COMPUTER"));
+            messageList.add(new Message(String.format("축하합니다! %d회 만에 맞췄습니다",tryCount),"COMPUTER"));
             adapter.notifyDataSetChanged();
             binding.messageListView.smoothScrollToPosition(messageList.size()-1);
             binding.numInputEdt.setEnabled(false);
